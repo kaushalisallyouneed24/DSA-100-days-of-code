@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node *left;
+    struct Node *right;
+};
+
+// 1. Recursive Search
+struct Node* searchRecursive(struct Node* root, int target) {
+    // Base Case: root is null or target is found
+    if (root == NULL || root->data == target) {
+        return root;
+    }
+
+    // Target is greater than root's data
+    if (target > root->data) {
+        return searchRecursive(root->right, target);
+    }
+
+    // Target is smaller than root's data
+    return searchRecursive(root->left, target);
+}
+
+// 2. Iterative Search (Saves stack space)
+struct Node* searchIterative(struct Node* root, int target) {
+    while (root != NULL && root->data != target) {
+        if (target < root->data) {
+            root = root->left;
+        } else {
+            root = root->right;
+        }
+    }
+    return root;
+}
